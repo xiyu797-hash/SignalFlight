@@ -1,0 +1,40 @@
+{
+  "purpose": "isolated DSP kernel only, not network or system throughput",
+  "generated_epoch_ms": 1793859127207,
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.13.5",
+    "processor": ""
+  },
+  "frames_per_trial": 4000,
+  "samples_per_frame": 1024,
+  "repeats": 5,
+  "seconds_by_trial": {
+    "fft": [
+      0.166116,
+      0.0700698,
+      0.0801918,
+      0.0693233,
+      0.0751885
+    ],
+    "reference": [
+      0.424763,
+      0.416752,
+      0.411741,
+      0.420308,
+      0.475331
+    ]
+  },
+  "median_seconds": {
+    "fft": 0.0751885,
+    "reference": 0.420308
+  },
+  "speedup_reference_over_fft": 5.59005699009822,
+  "checksums": {
+    "reference": 6189.938207959827,
+    "fft": 6189.938207959827
+  },
+  "checksum_absolute_difference": 0.0,
+  "caveat": "single-process microbenchmark; no CPU pinning; no guaranteed end-to-end speedup"
+}

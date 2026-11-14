@@ -1,0 +1,77 @@
+{
+  "project": "SignalFlight",
+  "edition": "Systems 1.8",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "rounds": [
+    {
+      "round": 1,
+      "frames": 4000,
+      "fps": 7272.45,
+      "seconds": 0.550021,
+      "queue_peak": 10,
+      "p99_us": 926
+    },
+    {
+      "round": 2,
+      "frames": 4000,
+      "fps": 12125,
+      "seconds": 0.329897,
+      "queue_peak": 4,
+      "p99_us": 450
+    },
+    {
+      "round": 3,
+      "frames": 4000,
+      "fps": 11472.2,
+      "seconds": 0.348668,
+      "queue_peak": 4,
+      "p99_us": 587
+    },
+    {
+      "round": 4,
+      "frames": 4000,
+      "fps": 11936.5,
+      "seconds": 0.335107,
+      "queue_peak": 4,
+      "p99_us": 464
+    },
+    {
+      "round": 5,
+      "frames": 4000,
+      "fps": 11163.3,
+      "seconds": 0.358316,
+      "queue_peak": 4,
+      "p99_us": 596
+    },
+    {
+      "round": 6,
+      "frames": 4000,
+      "fps": 12193,
+      "seconds": 0.328056,
+      "queue_peak": 4,
+      "p99_us": 522
+    },
+    {
+      "round": 7,
+      "frames": 4000,
+      "fps": 11584.3,
+      "seconds": 0.345296,
+      "queue_peak": 4,
+      "p99_us": 627
+    },
+    {
+      "round": 8,
+      "frames": 4000,
+      "fps": 10231.2,
+      "seconds": 0.390962,
+      "queue_peak": 50,
+      "p99_us": 2158
+    }
+  ],
+  "median_fps": 11528.25,
+  "total_frames_tested": 32000,
+  "restart_cycles": 4,
+  "midstream_stop_tested": true,
+  "elapsed_seconds": 6.68,
+  "passed": true
+}

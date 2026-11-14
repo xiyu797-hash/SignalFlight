@@ -1,0 +1,39 @@
+name: SignalFlight cross-platform checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --parallel 4
+      - name: All local tests
+        run: python3 scripts/verify_all.py
+      - name: Repeated systems qualification
+        run: python3 scripts/qualify.py --rounds 4 --frames 2500 --restart-cycles 2
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: mingw-w64-ucrt-x86_64-gcc
+      - name: Native Windows build and C++ tests
+        shell: pwsh
+        run: |
+          $env:SF_CXX = 'C:\msys64\ucrt64\bin\g++.exe'
+          & .\scripts\build_windows.ps1
+      - name: Windows UDP + replay regression
+        shell: pwsh
+        run: |
+          $env:SF_CXX = 'C:\msys64\ucrt64\bin\g++.exe'
+          & .\scripts\run_windows.ps1 -Mode test -SkipBuild
+      - name: Windows systems qualification
+        shell: pwsh
+        run: |
+          $env:SF_CXX = 'C:\msys64\ucrt64\bin\g++.exe'
+          & .\scripts\run_windows.ps1 -Mode qualify -SkipBuild

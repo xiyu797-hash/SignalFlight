@@ -1,0 +1,77 @@
+{
+  "project": "SignalFlight",
+  "version": "1.8.0",
+  "generated_epoch_ms": 1793859245410,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "architecture": "x86_64",
+  "python": "3.13.5",
+  "full_benchmarks": false,
+  "checks": [
+    {
+      "test": "package_layout",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 1.296,
+      "stdout_tail": "PASS package layout: 22 essential files present\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "core",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.006,
+      "stdout_tail": "RECORDING /tmp/sf_test_1793859224063/incident_1793859224064_1_0 packets=2\ntest_core PASS (protocol, CRC, seq, reorder, frames, queue, pressure, DSP, recorder, replay)\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "hardening",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.034,
+      "stdout_tail": "RECORDING /tmp/sf_hardening_1793859224091_922674/incident_1793859224091_1_0 packets=2\nRECORDING /tmp/sf_forensics_1698698415909/incident_1793859224093_1_0 packets=2\nRECORDING /tmp/sf_recorder_limit_1698699088053/incident_1793859224093_1_0 packets=1\nRECORDING /tmp/sf_recorder_limit_1698699088053/incident_1793859224093_2_0 packets=2\nRECORDING /tmp/sf_concurrent_finish_1698700162301/incident_1793859224095_1_0 packets=2\ntest_hardening PASS (protocol, FFT, concurrent shutdown, recorder, metrics)\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "udp_integration",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 3.827,
+      "stdout_tail": "PASS normal: packets=960 frames=120 drops=0 reordered=0 incidents=1\nPASS faults: packets=1029 frames=87 drops=0 reordered=158 incidents=8\nPASS overload: packets=3600 frames=450 drops=383 reordered=0 incidents=28\nALL INTEGRATION TESTS PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "extended_integration",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 13.432,
+      "stdout_tail": "PASS extended multi-source: 180/180; replay twice identical; corrupt replay rejected\nPASS malformed UDP: oversized/invalid datagrams rejected; 20 valid frames still complete\nPASS pressure: 12000 frames, queue peak=6, dropped=0\nPASS unsupported inference flag fails explicitly\nPASS signal source bpsk: 24/24 frames\nPASS signal source qam: 24/24 frames\nPASS signal source raw_iq_loop: 32/32 frames\nPASS source restart: two auto sessions, 50/50 frames\nALL EXTENDED TESTS PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "sample_replay",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.007,
+      "stdout_tail": "REPLAY {\"recorded_packets\":256,\"metrics\":{\"packets_rx\":256,\"bytes_rx\":276480,\"bad_packets\":4,\"crc_errors\":4,\"duplicates\":6,\"reordered\":40,\"missing_final\":13,\"packets_too_old\":0,\"frames_ready\":21,\"frames_expired\":12,\"frames_duplicate\":0,\"frames_rejected\":0,\"analyzed_full\":21,\"analyzed_light\":0,\"analyzed_failed\":0,\"queue_dropped\":0,\"queue_peak\":0,\"record_dropped\":0,\"record_suppressed\":0,\"record_completed\":0,\"record_write_failed\":0,\"queue_size\":0,\"latency_samples\":0,\"p99_latency_upper_us\":null,\"p99_latency_overflow\":false,\"latency_window_samples\":0,\"latency_window_truncated\":false,\"p50_latency_us\":null,\"p95_latency_us\":null,\"p99_latency_us\":null}}\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "unicode_paths",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 1.596,
+      "stdout_tail": "test_unicode_paths PASS: replay, source IQ, live UDP, ready/stop, recorder and metrics\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "stop_restart",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 2.45,
+      "stdout_tail": "PASS restart 1 (normal): frames=80, analyzed=80, dropped=0, captures=1\nPASS restart 2 (normal): frames=80, analyzed=80, dropped=0, captures=1\nPASS restart 3 (midstream): frames=191, analyzed=191, dropped=0, captures=1\nPASS stop/restart and midstream graceful shutdown\n",
+      "stderr_tail": ""
+    }
+  ],
+  "skipped_optional_checks": [],
+  "passed": true
+}

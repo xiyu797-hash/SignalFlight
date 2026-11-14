@@ -1,0 +1,8 @@
+{
+  "format": "SFR0002",
+  "created_epoch_ms": 1793775028442,
+  "trigger": "confirmed_missing_packet",
+  "packet_count": 256,
+  "recorded_bytes": 280608,
+  "complete_capture": true
+}

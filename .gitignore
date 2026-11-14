@@ -1,0 +1,27 @@
+# Build outputs, binaries and caches
+build/
+build-asan/
+build-tsan/
+build-win/
+build-*/
+__pycache__/
+*.pyc
+*.o
+*.exe
+*.swp
+.DS_Store
+
+# Generated runtime recordings; keep .gitkeep.
+recordings/*
+!recordings/.gitkeep
+
+# Reproducible evidence is retained under docs/evidence, while mutable
+# benchmark outputs generated on the user machine are ignored.
+
+# Qualification and performance reports are generated locally, not pre-certified.
+benchmarks/*.json
+benchmarks/*.csv
+benchmarks/*.log
+benchmarks/audit-*/
+benchmarks/current-boundary-audit.txt
+/MANIFEST.sha256

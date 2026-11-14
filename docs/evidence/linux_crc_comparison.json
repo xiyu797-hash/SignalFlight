@@ -1,0 +1,29 @@
+{
+  "purpose": "isolated CRC32 kernel; NOT end-to-end UDP speedup",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "frames_per_trial": 4000,
+  "repeats": 5,
+  "seconds_by_trial": {
+    "table": [
+      0.013818922,
+      0.017335445,
+      0.013698252,
+      0.018782541,
+      0.014520092
+    ],
+    "reference": [
+      0.102238207,
+      0.063307887,
+      0.071849687,
+      0.056096032,
+      0.078361539
+    ]
+  },
+  "median_seconds": {
+    "table": 0.014520092,
+    "reference": 0.071849687
+  },
+  "speedup_reference_over_table": 4.948294198135934,
+  "verified_equal_checksums": true,
+  "generated_epoch_ms": 1793859128892
+}

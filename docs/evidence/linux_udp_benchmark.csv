@@ -1,0 +1,10 @@
+scenario,frames_requested,frame_rate_requested,elapsed_seconds,packets_rx,bytes_rx,bad_packets,crc_errors,duplicates,reordered,missing_final,packets_too_old,frames_ready,frames_expired,frames_duplicate,frames_rejected,analyzed_full,analyzed_light,analyzed_failed,queue_dropped,queue_peak,record_dropped,record_suppressed,record_completed,record_write_failed,queue_size,latency_samples,p99_latency_upper_us,p99_latency_overflow,latency_window_samples,latency_window_truncated,p50_latency_us,p95_latency_us,p99_latency_us,run
+baseline,300,350,1.277,2400,2592000,0,0,0,0,0,0,300,0,0,0,300,0,0,0,2,0,0,0,0,0,300,1000,False,300,False,97,295,604,1
+weak_network,300,350,1.277,2378,2568240,0,0,33,287,55,0,245,55,0,0,245,0,0,0,2,0,0,0,0,0,245,1000,False,245,False,103,286,535,1
+overloaded,550,1500,0.789,4400,4752000,0,0,0,0,0,0,550,0,0,0,15,89,0,446,15,0,0,0,0,0,104,100000,False,104,False,55573,63213,64147,1
+baseline,300,350,1.277,2400,2592000,0,0,0,0,0,0,300,0,0,0,300,0,0,0,2,0,0,0,0,0,300,1000,False,300,False,97,315,653,2
+weak_network,300,350,1.276,2378,2568240,0,0,33,287,55,0,245,55,0,0,245,0,0,0,2,0,0,0,0,0,245,1000,False,245,False,101,372,881,2
+overloaded,550,1500,0.787,4400,4752000,0,0,0,0,0,0,550,0,0,0,15,84,0,451,15,0,0,0,0,0,99,100000,False,99,False,56353,68126,71579,2
+baseline,300,350,1.276,2400,2592000,0,0,0,0,0,0,300,0,0,0,300,0,0,0,1,0,0,0,0,0,300,2000,False,300,False,110,677,1139,3
+weak_network,300,350,1.282,2378,2568240,0,0,33,287,55,0,245,55,0,0,245,0,0,0,2,0,0,0,0,0,245,2000,False,245,False,111,578,1626,3
+overloaded,550,1500,0.788,4400,4752000,0,0,0,0,0,0,550,0,0,0,15,86,0,449,15,0,0,0,0,0,101,100000,False,101,False,55848,63920,66044,3
