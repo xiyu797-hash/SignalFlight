@@ -11,7 +11,7 @@
 using namespace sf;
 static volatile std::sig_atomic_t interrupted=0;
 static void on_sig(int){interrupted=1;}
-static void help(){std::cout<<"sf_engine options:\n --host 0.0.0.0 --port 9009 --duration 10 --workers 2 --queue 256\n --work-us 0 --frame-samples 1024 --timeout-ms 500 --batch\n --record-dir recordings --capture-start --max-incidents 32\n --dsp-backend fft|reference (default fft)\n --results-out results/analysis.jsonl --metrics-out metrics.json\n --stop-file stop.flag --ready-file ready.flag (cross-platform automation)\n";}
+static void help(){std::cout<<"sf_engine options:\n --host 0.0.0.0 --port 9009 --duration 10 --workers 2 --queue 256\n --work-us 0 --frame-samples 1024 --timeout-ms 500 --batch\n --recvbuf-bytes 4194304 [--force-recvbuf (Linux CAP_NET_ADMIN)]\n --record-dir recordings --capture-start --max-incidents 32\n --dsp-backend fft|reference (default fft)\n --results-out results/analysis.jsonl --metrics-out metrics.json\n --stop-file stop.flag --ready-file ready.flag (cross-platform automation)\n";}
 int main(int argc,char** argv){
  try{
  Args a(argc,argv);if(a.flag("help")){help();return 0;}
@@ -26,8 +26,26 @@ int main(int argc,char** argv){
  [[maybe_unused]] net::Runtime network;
  net::OwnedSocket sock(::socket(AF_INET,SOCK_DGRAM,0));net::require_socket(sock.get(),"socket");
  require(net::nonblocking(sock.get()),"cannot set nonblocking mode");
- int recvbuf=4*1024*1024;
- ::setsockopt(sock.get(),SOL_SOCKET,SO_RCVBUF,reinterpret_cast<const char*>(&recvbuf),sizeof(recvbuf));
+ int recvbuf=a.integer("recvbuf-bytes",4*1024*1024);require(recvbuf>0&&recvbuf<=64*1024*1024,"invalid recvbuf-bytes");
+ int recvbuf_option=SO_RCVBUF;
+ if(a.flag("force-recvbuf")) {
+#ifdef _WIN32
+  throw std::runtime_error("force-recvbuf is Linux-only");
+#else
+  recvbuf_option=SO_RCVBUFFORCE;
+#endif
+ }
+ if(::setsockopt(sock.get(),SOL_SOCKET,recvbuf_option,reinterpret_cast<const char*>(&recvbuf),sizeof(recvbuf))!=0)
+  throw std::runtime_error("setsockopt receive buffer failed: error="+std::to_string(net::last_error()));
+ int effective_recvbuf=0;
+#ifdef _WIN32
+ int recvbuf_len=sizeof(effective_recvbuf);
+#else
+ socklen_t recvbuf_len=sizeof(effective_recvbuf);
+#endif
+ if(::getsockopt(sock.get(),SOL_SOCKET,SO_RCVBUF,reinterpret_cast<char*>(&effective_recvbuf),&recvbuf_len)!=0)
+  throw std::runtime_error("getsockopt receive buffer failed: error="+std::to_string(net::last_error()));
+ std::cout<<"SOCKET_BUFFER {\"requested_bytes\":"<<recvbuf<<",\"getsockopt_bytes\":"<<effective_recvbuf<<",\"forced\":"<<(a.flag("force-recvbuf")?"true":"false")<<"}"<<std::endl;
  sockaddr_in addr{};addr.sin_family=AF_INET;addr.sin_port=htons(uint16_t(port));
  require(inet_pton(AF_INET,a.get("host","0.0.0.0").c_str(),&addr.sin_addr)==1,"invalid bind IPv4 address");
  require(::bind(sock.get(),reinterpret_cast<sockaddr*>(&addr),sizeof(addr))==0,"bind failed: port may be in use (error="+std::to_string(net::last_error())+")");

@@ -37,3 +37,6 @@ Linux: `python3 scripts/verify_all.py --full --qualify`（须先CMake编译）�
 SFR0002录制文件有CRC与整体FNV-1a摘要；摘要用于**意外损坏检测**，不是防恶意篡改认证。异常中止时未完成记录会留在`.partial_*`目录且不会被误认作有效事件。复现实验时必须说明记录是否完整；回放相同输入不等于确定性多线程重演。
 
 Systems Edition no longer emits inference/classification fields. `sf_replay`, `sf_source`, `sf_bench` and `sf_engine` reject the old `--onnx-model` flag rather than silently ignoring it.
+# UDP receive buffer diagnostics
+
+`sf_engine` accepts `--recvbuf-bytes` (default 4194304, maximum 67108864) and prints `SOCKET_BUFFER` JSON with the requested value and the value returned by `getsockopt(SO_RCVBUF)`. Linux reports a doubled bookkeeping value; the returned value is not directly comparable to the request without accounting for that behavior. A normal request may be clamped by `net.core.rmem_max`. Linux-only `--force-recvbuf` requests `SO_RCVBUFFORCE` for this socket and requires `CAP_NET_ADMIN`; an error is reported explicitly if unavailable. This option does not change global sysctls. A larger buffer can reduce burst drops but does not prove network delivery or prevent sustained overload; record both the requested and observed values in experiments.
