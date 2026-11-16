@@ -51,9 +51,12 @@ int main(int argc,char** argv){
    if(!parent.empty())std::filesystem::create_directories(parent);
    std::ofstream ready(fs_path(ready_file),std::ios::trunc);require(bool(ready),"cannot create ready-file");ready<<port<<"\n";ready.flush();
  }
- const auto started=Clock::now();auto last=Clock::now();uint64_t max_packets=uint64_t(std::max(0,a.integer("max-packets",0)));
+ const auto started=Clock::now();auto last=Clock::now();auto next_stop_check=started;uint64_t max_packets=uint64_t(std::max(0,a.integer("max-packets",0)));
  while(!interrupted){
-  if(!stop_file.empty() && std::filesystem::exists(fs_path(stop_file)))break;
+  if(!stop_file.empty() && Clock::now()>=next_stop_check){
+   if(std::filesystem::exists(fs_path(stop_file)))break;
+   next_stop_check=Clock::now()+std::chrono::milliseconds(10);
+  }
   if(duration>0&&Clock::now()-started>=std::chrono::seconds(duration))break;
   if(max_packets&&engine.metrics().packets_rx>=max_packets)break;
 #ifdef _WIN32
